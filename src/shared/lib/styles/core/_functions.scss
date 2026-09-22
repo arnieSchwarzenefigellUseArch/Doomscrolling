@@ -1,0 +1,61 @@
+@use 'sass:color';
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:list';
+@use 'variables' as var;
+
+@function toRgb($color) {
+  @return #{color.channel($color, 'red', $space: rgb)},
+    #{color.channel($color, 'green', $space: rgb)}, #{color.channel($color, 'blue', $space: rgb)};
+}
+
+@function rem($px) {
+  @return math.div($px, 16px) * rem;
+}
+
+@function shadow($size, $color, $type: 'default', $offset: 0) {
+  $final-color: map.get(var.$shadow-colors, $color);
+  $valid-types: ('default', 'lo');
+
+  @if not list.index($valid-types, $type) {
+    @error "Type '#{$type}' is not valid. Valid types are: #{$valid-types}";
+  }
+
+  @if not $final-color {
+    @error "Color '#{$color}' is not valid. Valid colors are #{map.keys(var.$shadow-colors)}";
+  }
+
+  @if $type == 'lo' {
+    $lo-size: map.get(var.$shadow-lo-sizes, $size);
+    $steps: map.get(var.$shadow-lo-steps, $size);
+    @return 0 $offset $lo-size color-mix(in srgb, $final-color $steps, transparent);
+  } @else if $type == 'default' {
+    $final-size: map.get(var.$shadow-default-sizes, $size);
+    @return 0 $offset $final-size $final-color;
+  }
+}
+
+@function radius($size) {
+  $valid-sizes: (
+    'xs': 4px,
+    's': 8px,
+    'm': 12px,
+    'l': 16px,
+    'l-inc': 20px,
+    'xl': 28px,
+    'xl-inc': 32px,
+    'xxl': 48px,
+    'max': 9999px,
+    'circle': 50%,
+  );
+
+  @if not map.has-key($valid-sizes, $size) {
+    @error "Size '#{$size}' is not valid. Valid sizes are #{map.keys($valid-sizes)}";
+  }
+
+  @return viewer($valid-sizes, $size);
+}
+
+@function viewer($map, $key) {
+  @return map.get($map, $key);
+}

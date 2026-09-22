@@ -1,0 +1,201 @@
+@use '../../lib/styles/use' as *;
+
+@layer ui {
+  :host {
+    &.btn {
+      font: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: $space-2;
+      border: none;
+      background: none;
+      white-space: nowrap;
+      position: relative;
+      @include ripple;
+      @include interactive-after();
+      @include radius-for('button-default');
+
+      @include breakpoint('tablet') {
+        display: flex;
+      }
+
+      &.btn.icon-only {
+        width: auto;
+        aspect-ratio: 1;
+        flex-shrink: 0;
+        padding: 0;
+        @include radius-for('button-icon');
+      }
+
+      i,
+      span:not(.ripple-circle) {
+        z-index: 1;
+      }
+
+      &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+        color: var(--content);
+      }
+    }
+    @each $key, $value in $btn-sizes {
+      &.btn-#{$key} {
+        height: $value;
+        font-size: viewer($font-sizes, $key);
+        padding: 0 viewer($btn-pxs, $key);
+      }
+    }
+
+    &.btn-pill {
+      min-height: viewer($btn-sizes, 'sm');
+      width: fit-content;
+      font-size: viewer($font-sizes, 'lg');
+      padding: 0 $btn-px-pill;
+    }
+
+    &.btn-border-sweep {
+      position: relative;
+
+      &::before {
+        z-index: -1;
+        position: absolute;
+        content: '';
+        inset: -2px;
+        border-radius: inherit;
+        padding: 2px;
+        mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+
+        @media (prefers-reduced-motion: reduce) {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      @include hover {
+        &::before {
+          background: conic-gradient(
+            from var(--border-angle) at 50% 50%,
+            var(--accent) 0deg var(--sweep-deg-1),
+            transparent var(--sweep-deg-1) 360deg
+          );
+          animation: btn-border-sweep 3s $default-easing;
+          animation-iteration-count: infinite;
+        }
+      }
+    }
+
+    &.btn-simple {
+      color: var(--content-strong);
+    }
+
+    &.btn-primary {
+      background-color: var(--accent);
+      color: var(--content-strong);
+      border: none;
+      --ripple-opacity: 22%;
+    }
+
+    &.btn-ghost {
+      @include layer('floating', true, true);
+      color: var(--content-strong);
+    }
+
+    &.btn-secondary {
+      background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+      color: var(--accent);
+    }
+
+    &.btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--content);
+    }
+  }
+
+  @property --border-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @property --sweep-deg-1 {
+    syntax: '<angle>';
+    initial-value: 10deg;
+    inherits: false;
+  }
+
+  @keyframes btn-border-sweep {
+    0% {
+      --border-angle: 0deg;
+      --sweep-deg-1: 10deg;
+    }
+    50% {
+      --border-angle: 240deg;
+      --sweep-deg-1: 290deg;
+    }
+    100% {
+      --border-angle: 360deg;
+      --sweep-deg-1: 10deg;
+    }
+  }
+
+  &.btn:not(.icon-only) {
+    &.btn-primary {
+      transition:
+        scale 0.15s $default-easing,
+        background-color 0.15s $default-easing,
+        box-shadow 0.15s $default-easing;
+      box-shadow: shadow('m', 'accent', 'lo');
+
+      @include hover {
+        scale: 1.05;
+        box-shadow: shadow('l', 'accent', 'lo');
+      }
+
+      &:active {
+        scale: 0.95;
+      }
+    }
+    &.btn-ghost {
+      transition:
+        background-color 0.15s $default-easing,
+        scale 0.15s $default-easing;
+      scale: 1;
+
+      @include hover {
+        background-color: color-mix(in srgb, var(--accent) 20%, transparent);
+        scale: 1.05;
+      }
+
+      &:active {
+        scale: 0.95;
+      }
+    }
+    &.btn-outline {
+      transition:
+        scale 0.15s $default-easing,
+        background-color 0.15s $default-easing,
+        color 0.15s $default-easing,
+        border-color 0.15s $default-easing;
+
+      @include hover {
+        background-color: var(--accent);
+        color: var(--content-strong);
+        scale: 1.05;
+        border-color: var(--accent);
+      }
+
+      &:active {
+        scale: 0.95;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use '../../../shared/lib/styles/use';
+
+:host {
+  display: contents;
+}
+
+#theme-icon-button {
+  font-size: use.viewer(use.$font-sizes, 'xl');
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+}

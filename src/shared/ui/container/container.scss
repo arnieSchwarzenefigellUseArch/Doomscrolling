@@ -1,0 +1,21 @@
+@use '../../lib/styles/core/mixins' as mix;
+@use '../../lib/styles/core/variables' as var;
+
+:host {
+  display: block;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var.$space-7;
+
+  @include mix.breakpoint('desktop') {
+    padding: var.$space-6;
+  }
+
+  @include mix.breakpoint('laptop') {
+    padding: var.$space-5;
+  }
+
+  @include mix.breakpoint('tablet') {
+    padding: var.$space-4;
+  }
+}

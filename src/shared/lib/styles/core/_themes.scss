@@ -1,0 +1,46 @@
+@use 'variables' as var;
+@use 'functions' as func;
+
+@layer core {
+  :root {
+    --accent: #{var.$accent};
+    --accent-rgb: #{func.toRgb(var.$accent)};
+    --secondary-accent: #{var.$secondary-accent};
+    --secondary-accent-rgb: #{func.toRgb(var.$secondary-accent)};
+    color-scheme: light dark;
+  }
+
+  :root[data-theme='dark'] {
+    --bg-surface-0: #{var.$bg-surface-0};
+    --bg-surface-0-rgb: #{func.toRgb(var.$bg-surface-0)};
+    --bg-surface-1: #{var.$bg-surface-1};
+    --bg-surface-1-rgb: #{func.toRgb(var.$bg-surface-1)};
+    --bg-surface-2: #{var.$bg-surface-2};
+    --bg-surface-2-rgb: #{func.toRgb(var.$bg-surface-2)};
+    --bg-surface-3: #{var.$bg-surface-3};
+    --bg-surface-3-rgb: #{func.toRgb(var.$bg-surface-3)};
+    --bg-surface-4: #{var.$bg-surface-4};
+    --bg-surface-4-rgb: #{func.toRgb(var.$bg-surface-4)};
+    --content-strong: #{var.$content-strong};
+    --content-strong-rgb: #{func.toRgb(var.$content-strong)};
+    --content: #{var.$content};
+    --content-rgb: #{func.toRgb(var.$content)};
+  }
+
+  :root[data-theme='light'] {
+    --bg-surface-0: #{var.$bg-surface-0-light};
+    --bg-surface-0-rgb: #{func.toRgb(var.$bg-surface-0-light)};
+    --bg-surface-1: #{var.$bg-surface-1-light};
+    --bg-surface-1-rgb: #{func.toRgb(var.$bg-surface-1-light)};
+    --bg-surface-2: #{var.$bg-surface-2-light};
+    --bg-surface-2-rgb: #{func.toRgb(var.$bg-surface-2-light)};
+    --bg-surface-3: #{var.$bg-surface-3-light};
+    --bg-surface-3-rgb: #{func.toRgb(var.$bg-surface-3-light)};
+    --bg-surface-4: #{var.$bg-surface-4-light};
+    --bg-surface-4-rgb: #{func.toRgb(var.$bg-surface-4-light)};
+    --content-strong: #{var.$content-strong-light};
+    --content-strong-rgb: #{func.toRgb(var.$content-strong-light)};
+    --content: #{var.$content-light};
+    --content-rgb: #{func.toRgb(var.$content-light)};
+  }
+}

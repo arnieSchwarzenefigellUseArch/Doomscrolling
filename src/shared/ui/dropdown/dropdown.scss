@@ -1,0 +1,48 @@
+@use '../../lib/styles/use';
+
+@include use.host-as-div;
+
+:host {
+  @include use.radius-for('card');
+  @include use.spacing('m-inc');
+  gap: 0;
+  transition: gap 0.3s use.$default-easing;
+  @include use.ripple;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  min-width: 300px;
+  position: relative;
+  &.opened {
+    @include use.spacing('m-inc', gap);
+  }
+
+  .dropdown-header {
+    display: flex;
+    @include use.spacing('s-inc', 'gap');
+    align-items: center;
+
+    &::before {
+      content: '\f105';
+      font-family: 'Font Awesome 7 Free';
+      font-weight: 900;
+      order: 1;
+      transition: transform 0.3s use.$default-easing;
+      transform: rotate(0deg);
+    }
+  }
+  .dropdown-body {
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+:host.opened {
+  .dropdown-header {
+    &::before {
+      transform: rotate(90deg);
+    }
+  }
+}

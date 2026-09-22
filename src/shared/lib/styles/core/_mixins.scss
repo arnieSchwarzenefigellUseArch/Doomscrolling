@@ -1,0 +1,381 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'functions' as func;
+@use 'variables' as var;
+@use 'keyframes' as *;
+
+$breakpoints: (
+  'mobile': 576px,
+  'tablet': 768px,
+  'laptop': 999px,
+  'desktop': 1224px,
+  'large-desktop': 1600px,
+);
+
+$shadow-variants: ('default', 'floating', 'flat', 'glow', 'spread', 'max', 'tinted');
+
+@mixin breakpoint($breakpoint) {
+  @if not map.has-key($breakpoints, $breakpoint) {
+    @error "Unknown breakpoint: #{$breakpoint}. Valid breakpoints are #{map.keys($breakpoints)}";
+  }
+
+  @media (max-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-up($breakpoint) {
+  @if not map.has-key($breakpoints, $breakpoint) {
+    @error "Unknown breakpoint: #{$breakpoint}. Valid breakpoints are #{map.keys($breakpoints)}";
+  }
+
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-between($breakpoint1, $breakpoint2) {
+  @if not map.has-key($breakpoints, $breakpoint1) or not map.has-key($breakpoints, $breakpoint2) {
+    @error "Unknown breakpoints: #{$breakpoint1} , #{$breakpoint2}. Valid breakpoints are #{map.keys($breakpoints)}";
+  }
+
+  @media (min-width: map.get($breakpoints, $breakpoint1)) and (max-width: map.get($breakpoints, $breakpoint2)) {
+    @content;
+  }
+}
+
+@mixin kinetic($enableTranslate: false) {
+  @include hover {
+    @if $enableTranslate {
+      transform: translateY(-4px) scale(1.05);
+    } @else {
+      transform: scale(1.05);
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+@mixin shadow-preset($variant) {
+  @if not list.index($shadow-variants, $variant) {
+    @error "Variant '#{$variant}' is not valid. Valid variants: #{$shadow-variants}";
+  }
+
+  @if $variant == 'default' {
+    box-shadow: func.shadow('s', 'base-strong', 'lo'), func.shadow('m', 'base', 'lo');
+    animation: shadow-default-out 0.15s var.$default-easing forwards;
+
+    @include hover {
+      animation: shadow-default-in 0.15s var.$default-easing forwards;
+    }
+
+    @include breakpoint('mobile') {
+      @include hover {
+        box-shadow: func.shadow('m', 'base', 'lo');
+        animation: none;
+      }
+    }
+  } @else if $variant == 'floating' {
+    box-shadow: func.shadow('s', 'base-strong', 'lo'), func.shadow('m', 'base', 'lo');
+    animation: shadow-floating-out 0.15s var.$default-easing forwards;
+
+    @include hover {
+      animation: shadow-floating-in 0.15s var.$default-easing forwards;
+    }
+  } @else if $variant == 'flat' {
+    box-shadow: func.shadow('xs', 'base', 'lo'), func.shadow('s', 'base-strong', 'lo');
+    animation: shadow-flat-out 0.15s var.$default-easing forwards;
+
+    @include hover {
+      animation: shadow-flat-in 0.15s var.$default-easing forwards;
+    }
+  } @else if $variant == 'glow' {
+    box-shadow: func.shadow('s', 'accent', 'lo'), func.shadow('l', 'accent', 'lo');
+    animation: shadow-glow-out 0.15s var.$default-easing forwards;
+
+    @include hover {
+      animation: shadow-glow-in 0.15s var.$default-easing forwards;
+    }
+
+    @include breakpoint('mobile') {
+      @include hover {
+        box-shadow: func.shadow('l', 'accent', 'lo');
+        animation: none;
+      }
+    }
+  } @else if $variant == 'spread' {
+    box-shadow:
+      func.shadow('s', 'accent', 'default'), func.shadow('m', 'accent', 'default'),
+      func.shadow('xl', 'accent', 'lo'), func.shadow('xxl', 'secondary-accent', 'lo'),
+      func.shadow('max', 'accent', 'lo');
+    animation: shadow-spread-out 0.15s var.$default-easing forwards;
+
+    @include hover {
+      animation: shadow-spread-in 0.15s var.$default-easing forwards;
+    }
+  } @else if $variant == 'max' {
+    box-shadow: func.shadow('xxl', 'base', 'lo'), func.shadow('max', 'base', 'lo');
+  } @else if $variant == 'tinted' {
+    box-shadow: func.shadow('s', 'current', 'default'), func.shadow('l', 'current', 'lo');
+    animation: shadow-tinted-out 0.15s var.$default-easing forwards;
+
+    @include hover {
+      animation: shadow-tinted-in 0.15s var.$default-easing forwards;
+    }
+  }
+}
+
+@mixin interactive-after() {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: currentColor;
+    pointer-events: none;
+    transition: opacity 0.15s var.$default-easing;
+    opacity: 0;
+    border-radius: inherit;
+  }
+
+  &:hover::after {
+    opacity: 0.08;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--content-strong);
+    outline-offset: -2px;
+    &::after {
+      opacity: 0.1;
+    }
+  }
+}
+
+$ui-layers: (0, 1, 2, 3, 4, 'floating', 'inherit');
+
+@mixin layer($layer, $interactive: false, $kinetic: false) {
+  @if not list.index($ui-layers, $layer) {
+    @error "Layer '#{$layer}' is not valid. Valid layers are: #{$ui-layers}";
+  }
+
+  @if $interactive and $kinetic or $interactive or $kinetic {
+    position: relative;
+    opacity: 1;
+    isolation: isolate;
+    @include interactive-after();
+  }
+
+  @if $layer == 'floating' {
+    background-color: var(--bg-surface-3);
+    --bg-surface-current: var(--bg-surface-3);
+    @include shadow-preset('floating');
+
+    @if $interactive {
+      @if $kinetic {
+        transition:
+          background-color 0.15s var.$default-easing,
+          transform 0.15s var.$default-easing;
+        @include kinetic(true);
+      } @else {
+        transition: background-color 0.15s var.$default-easing;
+      }
+
+      @include hover {
+        background-color: var(--bg-surface-4);
+      }
+    }
+  } @else if $layer == 'inherit' {
+    background-color: inherit;
+
+    @if $interactive and $kinetic {
+      transition: transform 0.15s var.$default-easing;
+      @include kinetic(false);
+    }
+  } @else if $layer < 4 {
+    background-color: var(--bg-surface-#{$layer});
+    --bg-surface-current: var(--bg-surface-#{$layer});
+
+    @if $interactive {
+      @if $kinetic {
+        transition:
+          background-color 0.15s var.$default-easing,
+          transform 0.15s var.$default-easing;
+        @include kinetic(false);
+      } @else {
+        transition: background-color 0.15s var.$default-easing;
+      }
+    }
+  } @else if $layer ==4 {
+    background-color: var(--bg-surface-4);
+    --bg-surface-current: var(--bg-surface-4);
+
+    @if $interactive and $kinetic {
+      transition: transform 0.15s var.$default-easing;
+      @include kinetic(true);
+    }
+  } @else {
+    @error "Unexpected layer '#{$layer}'. Available layers are: #{$ui-layers}";
+  }
+}
+
+$radius-roles: (
+  'button-default': 'max',
+  'button-icon': 'circle',
+  'card': 'xxl',
+  'input': 'max',
+  'pill': 'max',
+  'avatar': 'circle',
+);
+
+@mixin radius-for($radius-role) {
+  @if not map.has-key($radius-roles, $radius-role) {
+    @error "Unknown role '#{$radius-role}'. Available roles are: #{map.keys($radius-roles)}";
+  }
+  border-radius: func.radius(map.get($radius-roles, $radius-role));
+}
+
+$spacings: (
+  'xs': var.$space-1,
+  's': var.$space-2,
+  's-inc': var.$space-3,
+  'm': var.$space-4,
+  'm-inc': var.$space-5,
+  'l': var.$space-6,
+  'l-inc': var.$space-7,
+  'xl': var.$space-8,
+  'xl-inc': var.$space-9,
+  'xxl': var.$space-10,
+  'xxl-inc': var.$space-12,
+  'max': var.$space-16,
+);
+
+$spacing-types: ('margin', 'padding', 'gap');
+
+$spacing-directions: ('left', 'right', 'top', 'bottom', 'inline', 'all');
+
+@mixin spacing($size, $spacing-type: 'padding', $direction: 'all') {
+  @if not map.has-key($spacings, $size) {
+    @error "Size '#{$size}' is not valid. Valid sizes are #{map.keys($spacings)}";
+  }
+
+  @if not list.index($spacing-types, $spacing-type) {
+    @error "Spacing type '#{$spacing-type}' is not valid. Valid types are #{$spacing-types}";
+  }
+
+  @if $spacing-type != 'gap' {
+    @if not list.index($spacing-directions, $direction) {
+      @error "Spacing direction '#{$direction}' is not valid. Valid directions are #{$spacing-directions}";
+    }
+    @if $direction == 'all' {
+      #{$spacing-type}: func.viewer($spacings, $size);
+    } @else {
+      #{$spacing-type}-#{$direction}: func.viewer($spacings, $size);
+    }
+  } @else {
+    @if $direction != 'all' {
+      @error "Spacing direction '#{$direction}' is not valid for gap. Only 'all' is supported.";
+    }
+    #{$spacing-type}: func.viewer($spacings, $size);
+  }
+}
+
+@mixin host-as-div {
+  :host {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin size($w, $h: $w) {
+  width: $w;
+  height: $h;
+}
+
+@mixin ripple {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  .ripple-circle {
+    position: absolute;
+    border-radius: func.radius('circle');
+    background-color: color-mix(in srgb, currentColor var(--ripple-opacity, 16%), transparent);
+    @include shadow-preset('floating');
+    pointer-events: none;
+    transform: scale(0);
+    animation: ripple-grow 0.6s var.$default-easing forwards;
+  }
+}
+
+@keyframes ripple-grow {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin fade-top($color: var(--bg-surface-current), $height: 30px) {
+  height: $height;
+  background: linear-gradient(to bottom, $color 0%, transparent 100%);
+  pointer-events: none;
+}
+
+@mixin fade-bottom($color: var(--bg-surface-current), $height: 30px) {
+  height: $height;
+  background: linear-gradient(to top, $color 0%, transparent 100%);
+  pointer-events: none;
+}
+
+@mixin _scroller-y {
+  min-height: 0;
+  overscroll-behavior: contain;
+  overflow-y: auto;
+}
+
+@mixin _scroller-x {
+  min-width: 0;
+  overscroll-behavior: contain;
+  overflow-x: auto;
+}
+
+@mixin _scroller-both {
+  min-height: 0;
+  min-width: 0;
+  overscroll-behavior: contain;
+  overflow: auto;
+}
+
+@mixin scroller($axis: y) {
+  @if $axis ==y {
+    @include _scroller-y;
+  } @else if $axis ==x {
+    @include _scroller-x;
+  } @else if $axis ==both {
+    @include _scroller-both;
+  }
+}
+
+$divider-colors: (
+  'base': var(--content),
+  'accent': var(--accent),
+);
+
+@mixin divider($color: 'base') {
+  @if not map.has-key($divider-colors, $color) {
+    @error "Invalid divider color: #{$color}. Valid colors are: #{map.keys($divider-colors)}";
+  }
+  background-color: map.get($divider-colors, $color);
+  width: var(--divider-width, 1px);
+}

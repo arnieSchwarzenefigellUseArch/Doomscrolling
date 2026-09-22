@@ -1,0 +1,217 @@
+@use '../core/variables' as var;
+@use '../core/mixins' as mix;
+@use '../core/functions' as func;
+@use 'helpers' as use;
+
+@use 'sass:map';
+
+@layer internal {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 17px;
+    line-height: 1.5;
+
+    @include mix.breakpoint('desktop') {
+      font-size: 16px;
+    }
+    @include mix.breakpoint('laptop') {
+      line-height: 1.2;
+      font-size: 15px;
+    }
+
+    @include mix.breakpoint('tablet') {
+      font-size: 14px;
+    }
+  }
+
+  body {
+    color: var(--content);
+    font-family: var.$inter;
+    @include mix.layer(0);
+    position: relative;
+  }
+
+  app-root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+
+  main {
+    flex-grow: 1;
+    @include mix.layer(1);
+  }
+
+  footer {
+    flex-grow: 0;
+    view-transition-name: main-header;
+  }
+
+  header {
+    @include mix.layer(1);
+    view-transition-name: main-header;
+  }
+
+  header,
+  footer,
+  main {
+    transition:
+      color 0.15s var.$default-easing,
+      background-color 0.15s var.$default-easing;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--content-strong);
+  }
+  h1,
+  h2 {
+    font-family: var.$montserrat;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var.$ubuntu;
+  }
+
+  h1 {
+    font-size: map.get(var.$font-sizes, 'max');
+  }
+
+  h2 {
+    font-size: map.get(var.$font-sizes, '6xl');
+  }
+
+  h3 {
+    font-size: map.get(var.$font-sizes, '4xl');
+  }
+
+  h4 {
+    font-size: map.get(var.$font-sizes, '2xl');
+  }
+
+  h5 {
+    font-size: map.get(var.$font-sizes, 'xl');
+  }
+
+  h6 {
+    font-size: map.get(var.$font-sizes, 'lg');
+  }
+
+  section {
+    padding: var.$space-8 0;
+
+    @include mix.breakpoint('desktop') {
+      padding: var.$space-7 0;
+    }
+
+    @include mix.breakpoint('laptop') {
+      padding: var.$space-6 0;
+    }
+
+    @include mix.breakpoint('tablet') {
+      padding: var.$space-5 0;
+    }
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var.$space-6;
+
+    @include mix.breakpoint('desktop') {
+      padding: var.$space-5;
+    }
+
+    @include mix.breakpoint('mobile') {
+      padding: var.$space-4;
+    }
+  }
+
+  .flow {
+    > * + * {
+      margin-top: 1rem;
+    }
+
+    > :is(h1, h2, h3, h4, h5, h6) {
+      margin-top: 2rem;
+    }
+
+    > :is(h1, h2, h3, h4, h5, h6) + * {
+      margin-top: 0.5rem;
+    }
+  }
+
+  input {
+    @include mix.radius-for('input');
+    @include mix.spacing('m-inc');
+    color: var(--content-strong);
+    font-size: func.viewer(var.$font-sizes, 'md');
+    border: none;
+  }
+
+  .min-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var.$space-6;
+
+    @include mix.breakpoint('desktop') {
+      padding: var.$space-5;
+    }
+
+    @include mix.breakpoint('mobile') {
+      padding: var.$space-4;
+    }
+  }
+
+  nav {
+    display: flex;
+    gap: var.$space-2;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    mix-blend-mode: normal;
+  }
+
+  ::view-transition-old(root) {
+    animation: page-leave 0.3s var.$default-easing both;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-enter 0.3s var.$default-easing both;
+  }
+
+  @keyframes page-leave {
+    to {
+      opacity: 0;
+      scale: 0.7;
+    }
+  }
+
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

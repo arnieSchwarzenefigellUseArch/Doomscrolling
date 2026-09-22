@@ -1,0 +1,123 @@
+@use 'functions' as func;
+
+@keyframes shadow-default-in {
+  0% {
+    box-shadow: func.shadow('s', 'base-strong', 'lo'), func.shadow('m', 'base', 'lo');
+  }
+  100% {
+    box-shadow:
+      func.shadow('s', 'base', 'default'), func.shadow('m', 'base', 'lo'),
+      func.shadow('xl', 'base-strong', 'lo');
+  }
+}
+@keyframes shadow-default-out {
+  0% {
+    box-shadow:
+      func.shadow('s', 'base', 'default'), func.shadow('m', 'base', 'lo'),
+      func.shadow('xl', 'base-strong', 'lo');
+  }
+  100% {
+    box-shadow: func.shadow('s', 'base-strong', 'lo'), func.shadow('m', 'base', 'lo');
+  }
+}
+
+@keyframes shadow-floating-in {
+  0% {
+    box-shadow: func.shadow('s', 'base-strong', 'lo'), func.shadow('m', 'base', 'lo');
+  }
+  100% {
+    box-shadow: func.shadow('m', 'base-strong', 'lo'), func.shadow('l', 'base', 'lo');
+  }
+}
+@keyframes shadow-floating-out {
+  0% {
+    box-shadow: func.shadow('m', 'base-strong', 'lo'), func.shadow('l', 'base', 'lo');
+  }
+  100% {
+    box-shadow: func.shadow('s', 'base-strong', 'lo'), func.shadow('m', 'base', 'lo');
+  }
+}
+
+@keyframes shadow-flat-in {
+  0% {
+    box-shadow: func.shadow('xs', 'base', 'lo'), func.shadow('s', 'base-strong', 'lo');
+  }
+  100% {
+    box-shadow: func.shadow('s', 'base', 'lo'), func.shadow('m', 'base-strong', 'lo');
+  }
+}
+@keyframes shadow-flat-out {
+  0% {
+    box-shadow: func.shadow('s', 'base', 'lo'), func.shadow('m', 'base-strong', 'lo');
+  }
+  100% {
+    box-shadow: func.shadow('xs', 'base', 'lo'), func.shadow('s', 'base-strong', 'lo');
+  }
+}
+
+@keyframes shadow-glow-in {
+  0% {
+    box-shadow: func.shadow('s', 'accent', 'lo'), func.shadow('l', 'accent', 'lo');
+  }
+  100% {
+    box-shadow:
+      func.shadow('s', 'accent', 'default'), func.shadow('l', 'accent', 'lo'),
+      func.shadow('xl', 'accent', 'lo');
+  }
+}
+@keyframes shadow-glow-out {
+  0% {
+    box-shadow:
+      func.shadow('s', 'accent', 'default'), func.shadow('l', 'accent', 'lo'),
+      func.shadow('xl', 'accent', 'lo');
+  }
+  100% {
+    box-shadow: func.shadow('s', 'accent', 'lo'), func.shadow('l', 'accent', 'lo');
+  }
+}
+
+@keyframes shadow-spread-in {
+  0% {
+    box-shadow:
+      func.shadow('s', 'accent', 'default'), func.shadow('m', 'accent', 'default'),
+      func.shadow('xl', 'accent', 'lo'), func.shadow('max', 'accent', 'lo', 0),
+      func.shadow('xxl', 'secondary-accent', 'lo');
+  }
+  100% {
+    box-shadow:
+      func.shadow('s', 'accent', 'default'), func.shadow('m', 'accent', 'lo'),
+      func.shadow('max', 'accent', 'lo', 2px), func.shadow('xxl', 'accent', 'lo'),
+      func.shadow('max', 'secondary-accent', 'lo');
+  }
+}
+@keyframes shadow-spread-out {
+  0% {
+    box-shadow:
+      func.shadow('s', 'accent', 'default'), func.shadow('m', 'accent', 'lo'),
+      func.shadow('max', 'accent', 'lo', 2px), func.shadow('xxl', 'accent', 'lo'),
+      func.shadow('max', 'secondary-accent', 'lo');
+  }
+  100% {
+    box-shadow:
+      func.shadow('s', 'accent', 'default'), func.shadow('m', 'accent', 'default'),
+      func.shadow('max', 'accent', 'lo', 0), func.shadow('xl', 'accent', 'lo'),
+      func.shadow('xxl', 'secondary-accent', 'lo');
+  }
+}
+
+@keyframes shadow-tinted-in {
+  0% {
+    box-shadow: func.shadow('s', 'current', 'default'), func.shadow('l', 'current', 'lo');
+  }
+  100% {
+    box-shadow: func.shadow('m', 'current', 'default'), func.shadow('xl', 'current', 'lo');
+  }
+}
+@keyframes shadow-tinted-out {
+  0% {
+    box-shadow: func.shadow('m', 'current', 'default'), func.shadow('xl', 'current', 'lo');
+  }
+  100% {
+    box-shadow: func.shadow('s', 'current', 'default'), func.shadow('l', 'current', 'lo');
+  }
+}

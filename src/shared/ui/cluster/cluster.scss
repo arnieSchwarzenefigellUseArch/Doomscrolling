@@ -1,0 +1,31 @@
+@use '../../lib/styles/use';
+
+:host {
+  &.atom-cluster {
+    display: flex;
+    width: fit-content;
+  }
+
+  &.cluster-vertical {
+    flex-direction: column;
+  }
+
+  &.cluster-horizontal {
+    flex-direction: row;
+  }
+  &.cluster-default {
+    @include use.radius-for('pill');
+  }
+  &.cluster-divided {
+    @include use.radius-for('pill');
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      background-color: var(--content);
+      width: 1px;
+      height: 100%;
+    }
+  }
+}

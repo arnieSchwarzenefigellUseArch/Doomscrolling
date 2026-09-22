@@ -1,0 +1,17 @@
+@use '../../shared/lib/styles/use';
+
+.btn {
+  @include use.layer(4, true);
+  svg {
+    height: 1em;
+    width: 1em;
+    fill: var(--content-strong);
+  }
+}
+
+:host {
+  position: fixed;
+  bottom: use.$space-4;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

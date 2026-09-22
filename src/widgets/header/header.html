@@ -1,0 +1,22 @@
+<header>
+  <container>
+    <nav class="header-content__wrapper">
+      <a
+        atomButton
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}"
+        >Главная</a
+      >
+      <a
+        atomButton
+        routerLink="/mechanics"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}"
+        >Механика</a
+      >
+    </nav>
+    <app-header-actions />
+  </container>
+  <div class="header__fade"></div>
+</header>

@@ -1,0 +1,11 @@
+<h2>Простой калькулятор</h2>
+<div class="calculator-wrapper stack">
+  <h3>
+    Сколько в день вы тратите времени на просмотр телефона, бесконечный скроллинг новостей?(укажите
+    время в часах)
+  </h3>
+  <input type="text" class="calculator-input l2" (input)="filterInput()" placeholder="Введите число..." #inputRef />
+  <div class="calculator-result">
+    <p>{{ computedValue() }}</p>
+  </div>
+</div>

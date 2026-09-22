@@ -12,20 +12,31 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "paths": {
+      "@shared/*": ["./src/shared/*"],
+      "@core/*": ["./src/core/*"],
+      "@features/*": ["./src/features/*"],
+      "@utils/*": ["./src/shared/lib/utils/*"],
+      "@widgets/*": ["./src/widgets/*"],
+      "@constants/*": ["./src/shared/constants/*"],
+      "@ui/*": ["./src/shared/ui/*"],
+      "@type/*": ["./src/shared/types/*"]
+    },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true
+    "strictInputAccessModifiers": true,
   },
   "files": [],
+
   "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "./tsconfig.app.json",
     },
     {
-      "path": "./tsconfig.spec.json"
-    }
-  ]
+      "path": "./tsconfig.spec.json",
+    },
+  ],
 }

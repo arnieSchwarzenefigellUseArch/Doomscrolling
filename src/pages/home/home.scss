@@ -1,0 +1,42 @@
+@use '../../shared/lib/styles/use';
+
+.hero-section__container-first,
+.introduction-container {
+  margin-top: calc(use.$space-16 + use.$space-16);
+  @include use.breakpoint('desktop') {
+    margin: 0;
+  }
+}
+
+.introduction-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include use.spacing('max', 'margin', 'bottom');
+  @include use.shadow-preset('max');
+  @include use.breakpoint('desktop') {
+    box-shadow: none;
+  }
+  @include use.radius-for('pill');
+  @include use.spacing('s');
+}
+
+.hero-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  @include use.breakpoint('laptop') {
+    flex-wrap: wrap;
+  }
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-block: use.$space-6;
+  gap: use.$space-4;
+  card {
+    min-width: 0;
+  }
+  > dropdown {
+    flex: 1 1 0;
+  }
+}
+

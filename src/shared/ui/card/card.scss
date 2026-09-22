@@ -1,0 +1,9 @@
+@use '../../lib/styles/use';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  @include use.spacing('m');
+  @include use.spacing('m', 'gap');
+  @include use.radius-for('card');
+}

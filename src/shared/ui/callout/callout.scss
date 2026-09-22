@@ -1,0 +1,14 @@
+@use '../../lib/styles/use';
+
+:host {
+  display: contents;
+  card {
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--content) 50%, transparent) 10%,
+      color-mix(in srgb, var(--content) 15%, transparent) 100%
+    );
+    color: var(--content-strong);
+    @include use.spacing('m', 'padding', 'left');
+  }
+}

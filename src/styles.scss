@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'shared/lib/styles/internal/layers';
+@use 'sass:meta';
+@use 'shared/lib/styles/internal/internal';
+@use 'shared/lib/styles/core/core';
+
+@layer vendor {
+  @include meta.load-css('@fortawesome/fontawesome-free/scss/fontawesome');
+  @include meta.load-css('@fortawesome/fontawesome-free/scss/solid');
+  @include meta.load-css('@fortawesome/fontawesome-free/scss/brands');
+}
