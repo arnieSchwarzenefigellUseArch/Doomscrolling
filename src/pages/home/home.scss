@@ -40,3 +40,8 @@
   }
 }
 
+.home-final__section-wrapper {
+  display: flex;
+  flex-direction: column;
+  @include use.spacing('xl', 'gap');
+}

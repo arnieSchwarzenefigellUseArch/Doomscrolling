@@ -1,0 +1,16 @@
+<div
+  class="toast"
+  atomReveal
+  #toast
+  [class]="`toast-${data.type}`"
+  (mouseenter)="timerPause()"
+  (mouseleave)="timerResume()"
+>
+  <div class="toast-header">
+    <h3>{{ data.header }}</h3>
+    <button atomIconButton (click)="close()"><i class="fa-solid fa-close"></i></button>
+  </div>
+  <div class="toast-body">
+    <p>{{ data.text }}</p>
+  </div>
+</div>

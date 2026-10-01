@@ -3,7 +3,7 @@ import {ClusterDirection, ClusterVariants} from '@type/cluster';
 
 @Component({
   imports: [],
-  selector: 'cluster',
+  selector: 'atom-cluster',
   styleUrl: './cluster.scss',
   template: `<ng-content />`,
   host: {

@@ -1,5 +1,6 @@
 import {isPlatformBrowser} from '@angular/common';
 import {Service, WritableSignal, signal, effect, PLATFORM_ID, inject} from '@angular/core';
+import {Toast} from './toast';
 
 type ThemeType = 'dark' | 'light';
 

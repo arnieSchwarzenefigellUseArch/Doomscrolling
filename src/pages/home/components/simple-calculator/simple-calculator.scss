@@ -1,0 +1,11 @@
+@use '../../../../shared/lib/styles/use';
+input {
+  @include use.layer(2, true);
+  &:focus-visible {
+    outline: none;
+    background-color: var(--bg-surface-3);
+  }
+  @include use.hover {
+    background-color: var(--bg-surface-3);
+  }
+}

@@ -3,12 +3,20 @@
 :host {
   display: contents;
   card {
+    @include use.shadow-preset('glow');
     background: linear-gradient(
       to right,
-      color-mix(in srgb, var(--content) 50%, transparent) 10%,
-      color-mix(in srgb, var(--content) 15%, transparent) 100%
+      color-mix(in srgb, var(--content) 5%, transparent) 10%,
+      color-mix(in srgb, var(--content) 2%, transparent) 100%
     );
     color: var(--content-strong);
-    @include use.spacing('m', 'padding', 'left');
+    transition: background 0.15s use.$default-easing;
+    @include use.hover {
+      background: linear-gradient(
+        to right,
+        color-mix(in srgb, var(--accent) 10%, transparent) 10%,
+        color-mix(in srgb, var(--accent) 3%, transparent) 100%
+      );
+    }
   }
 }

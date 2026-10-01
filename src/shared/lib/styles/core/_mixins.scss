@@ -225,6 +225,7 @@ $radius-roles: (
   'input': 'max',
   'pill': 'max',
   'avatar': 'circle',
+  'lightbox': 'm',
 );
 
 @mixin radius-for($radius-role) {
@@ -305,7 +306,7 @@ $spacing-directions: ('left', 'right', 'top', 'bottom', 'inline', 'all');
   .ripple-circle {
     position: absolute;
     border-radius: func.radius('circle');
-    background-color: color-mix(in srgb, currentColor var(--ripple-opacity, 16%), transparent);
+    background-color: color-mix(in srgb, currentColor var(--ripple-opacity, 12%), transparent);
     @include shadow-preset('floating');
     pointer-events: none;
     transform: scale(0);
@@ -322,7 +323,9 @@ $spacing-directions: ('left', 'right', 'top', 'bottom', 'inline', 'all');
 
 @mixin hover {
   @media (hover: hover) and (pointer: fine) {
-    @content;
+    &:hover {
+      @content;
+    }
   }
 }
 

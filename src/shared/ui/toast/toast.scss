@@ -1,0 +1,81 @@
+@use '../../lib/styles/use';
+:host {
+  display: contents;
+}
+
+@property --toast-mix-ratio {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 20%;
+}
+
+@property --toast-grad-stop {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 15%;
+}
+
+.toast {
+  display: flex;
+  flex-direction: column;
+  @include use.spacing('s', 'gap');
+  @include use.layer(3);
+  @include use.spacing('s');
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  max-width: 500px;
+  @include use.radius-for('lightbox');
+
+  transition:
+    --toast-mix-ratio 0.15s use.$default-easing,
+    --toast-grad-stop 0.15s use.$default-easing;
+
+  @include use.hover {
+    --toast-mix-ratio: 40%;
+    --toast-grad-stop: 35%;
+  }
+
+  @mixin toast-variant($color, $icon-code) {
+    background: linear-gradient(
+      to bottom right,
+      color-mix(in srgb, $color var(--toast-mix-ratio), var(--bg-surface-3)) var(--toast-grad-stop),
+      var(--bg-surface-3)
+    );
+
+    .toast-header:before {
+      content: $icon-code;
+      font-family: 'Font Awesome 7 Free';
+      color: $color;
+    }
+  }
+
+  &-info {
+    @include toast-variant(dodgerblue, '\f05a');
+  }
+
+  &-success {
+    @include toast-variant(green, '\f058');
+  }
+
+  &-warning {
+    @include toast-variant(orange, '\f071');
+  }
+
+  &-error {
+    @include toast-variant(var(--accent), '\f057');
+  }
+}
+
+.toast-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include use.spacing('m', 'gap')
+}
+.toast-body {
+  display: flex;
+  flex-wrap: wrap;
+}

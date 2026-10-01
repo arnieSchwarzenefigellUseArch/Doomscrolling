@@ -7,7 +7,6 @@ import {
   untracked,
   inject,
   afterRenderEffect,
-  afterNextRender,
 } from '@angular/core';
 import {Ripple} from '@shared/directives/ripple';
 import {gsap} from 'gsap';
@@ -28,6 +27,7 @@ export class Dropdown {
   private elementRef = inject(ElementRef);
   private dropdownBody = viewChild<ElementRef<HTMLDivElement>>('dropdownBody');
   private renderer = inject(Renderer2);
+  
 
   toggle() {
     this.state() === 'closed' ? this.state.set('open') : this.state.set('closed');
@@ -44,12 +44,6 @@ export class Dropdown {
   }
 
   constructor() {
-    afterNextRender(() => {
-      const el = this.dropdownBody()?.nativeElement;
-      if (!el) return;
-      gsap.set(el, {height: 0});
-    });
-
     afterRenderEffect(() => {
       const el = this.dropdownBody()?.nativeElement;
       if (!el) return;

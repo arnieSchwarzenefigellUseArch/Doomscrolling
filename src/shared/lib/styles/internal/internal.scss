@@ -159,6 +159,9 @@
     color: var(--content-strong);
     font-size: func.viewer(var.$font-sizes, 'md');
     border: none;
+    &:focus-visible {
+      outline: none;
+    }
   }
 
   .min-container {

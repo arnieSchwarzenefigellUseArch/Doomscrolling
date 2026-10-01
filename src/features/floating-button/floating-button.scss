@@ -2,6 +2,11 @@
 
 .btn {
   @include use.layer(4, true);
+  @include use.shadow-preset('flat');
+  transition: translate 0.15s use.$default-easing;
+  @include use.hover {
+    translate: 0 -4px;
+  }
   svg {
     height: 1em;
     width: 1em;

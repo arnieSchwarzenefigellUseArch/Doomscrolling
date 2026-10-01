@@ -18,6 +18,7 @@
   }
   &.cluster-divided {
     @include use.radius-for('pill');
+    position: relative;
     &::after {
       content: '';
       position: absolute;

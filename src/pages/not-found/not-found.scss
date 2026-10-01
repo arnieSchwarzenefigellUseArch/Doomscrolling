@@ -1,0 +1,25 @@
+@use '../../shared/lib/styles/use';
+
+.not-found__icon {
+  font-size: 4rem;
+}
+
+.not-found__icons {
+  color: var(--content-strong);
+  @include use.radius-for('card');
+  @include use.shadow-preset('default');
+  @include use.spacing('l');
+  @include use.layer(1, true);
+}
+
+.not-found__content {
+  text-align: center;
+}
+
+container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @include use.spacing('xxl', 'gap');
+}
