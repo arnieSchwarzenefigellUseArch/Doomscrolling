@@ -8,7 +8,6 @@ import {
   inject,
   afterRenderEffect,
 } from '@angular/core';
-import {Ripple} from '@shared/directives/ripple';
 import {gsap} from 'gsap';
 import '@shared/lib/animations/easing';
 
@@ -20,7 +19,6 @@ import '@shared/lib/animations/easing';
   host: {
     '(click)': 'toggle()',
   },
-  hostDirectives: [Ripple],
 })
 export class Dropdown {
   private state = signal('closed');

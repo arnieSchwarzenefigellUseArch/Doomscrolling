@@ -1,0 +1,10 @@
+@use '../../shared/lib/styles/use';
+
+.sidebar-content__wrapper {
+  display: flex;
+  flex-direction: column;
+  @include use.spacing('s', 'gap');
+  .active-route {
+    color: var(--accent);
+  }
+}

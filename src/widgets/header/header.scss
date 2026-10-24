@@ -7,21 +7,13 @@ header {
   position: sticky;
   top: 0;
   width: 100%;
-  height: 80px;
-  z-index: 100;
-  .header-content__wrapper {
-    display: flex;
-    @include use.spacing('s', 'gap');
-    .active {
-      color: var(--accent);
-      pointer-events: none;
-    }
-  }
+  height: 52px;
+  z-index: 80;
 
   .header__fade {
     @include use.fade-top($color: var(--bg-surface-1));
   }
-  
+
   container {
     display: flex;
     justify-content: space-between;

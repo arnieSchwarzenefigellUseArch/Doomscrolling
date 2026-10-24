@@ -121,3 +121,9 @@
     box-shadow: func.shadow('s', 'current', 'default'), func.shadow('l', 'current', 'lo');
   }
 }
+
+@keyframes ripple-grow {
+  to {
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,12 @@
+<a
+  atomButton
+  (click)="go(route())"
+  [class.active-route]="isActiveRoute(route())()"
+  [variant]="isActiveRoute(route())() ? 'primary' : 'simple'"
+  [attr.aria-label]="label()"
+>
+  <span class="box">
+    <i [class]="icon()" aria-hidden="true"></i>
+  </span>
+  <span class="label">{{ label() }}</span>
+</a>

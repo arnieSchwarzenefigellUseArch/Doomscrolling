@@ -1,0 +1,12 @@
+@use '../../lib/styles/use';
+
+:host {
+  position: fixed;
+  bottom: 0;
+  @include use.radius-for('card');
+  @include use.layer(2);
+  @include use.spacing('m');
+  max-width: 800px;
+  width: 100%;
+  z-index: 100;
+}

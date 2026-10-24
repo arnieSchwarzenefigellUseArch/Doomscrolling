@@ -1,0 +1,9 @@
+<div class="actions-wrapper">
+  @if (sidebarState.getState()() === 'collapsed' && !sidebarState.isMobile()) {
+  <button atomIconButton class="collapsed-header-button" (click)="sidebarState.changeState()">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  } @else {
+  <atom-sidebar-header-buttons class="sidebar-header-buttons" />
+  }
+</div>

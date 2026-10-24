@@ -1,8 +1,8 @@
 @use '../core/variables' as var;
 @use '../core/mixins' as mix;
 @use '../core/functions' as func;
+@use '../core/keyframes' as *;
 @use 'helpers' as use;
-
 @use 'sass:map';
 
 @layer internal {
@@ -42,6 +42,12 @@
     min-height: 100dvh;
   }
 
+  :root:not(.sidebar-mobile) {
+    app-root {
+      padding-left: var(--sidebar-width);
+    }
+  }
+
   main {
     flex-grow: 1;
     @include mix.layer(1);
@@ -49,7 +55,8 @@
 
   footer {
     flex-grow: 0;
-    view-transition-name: main-header;
+    view-transition-name: main-footer;
+    @include mix.layer(1);
   }
 
   header {
@@ -57,8 +64,13 @@
     view-transition-name: main-header;
   }
 
-  header,
+  aside.sidebar {
+    view-transition-name: main-sidebar;
+  }
+
   footer,
+  header,
+  aside.sidebar,
   main {
     transition:
       color 0.15s var.$default-easing,
@@ -187,13 +199,23 @@
     text-decoration: none;
   }
 
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    mix-blend-mode: normal;
+  .ripple-circle {
+    position: absolute;
+    border-radius: func.radius('circle');
+    background-color: color-mix(
+      in srgb,
+      var(--ripple-color, currentColor) var(--ripple-opacity, 12%),
+      transparent
+    );
+    pointer-events: none;
+    transform: scale3d(0.1, 0.1, 0.1);
+    transition:
+      opacity,
+      transform 0s var.$default-easing;
   }
 
   ::view-transition-old(root) {
-    animation: page-leave 0.3s var.$default-easing both;
+    animation: page-leave 0.3s var.$default-exit both;
   }
 
   ::view-transition-new(root) {
@@ -203,18 +225,19 @@
   @keyframes page-leave {
     to {
       opacity: 0;
-      scale: 0.7;
     }
   }
 
   @keyframes page-enter {
     from {
       opacity: 0;
-      transform: translateY(100%);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
     }
+  }
+
+  .backdrop {
+    background-color: rgba(var(--bg-surface-1-rgb), 0.8);
   }
 }

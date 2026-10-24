@@ -60,21 +60,3 @@ export function dynamicMatch(width: number, rule: ResizeRule) {
   const target = BREAKPOINTS[rule.breakpoint];
   return rule.direction === 'down' ? width <= target : width >= target;
 }
-
-type CartItem = {
-  id: string;
-  name: string;
-  price: number;
-  qty: number;
-};
-
-const cartItems = signal<CartItem[]>([
-  {id: '1', name: 'Клавиатура', price: 3000, qty: 1},
-  {id: '2', name: 'Мышь', price: 1500, qty: 2},
-  {id: '3', name: 'Коврик', price: 500, qty: 1},
-]);
-
-const mostExpensiveLine = computed(() => {
-  // товар, у которого price * qty — максимальный
-  //
-});

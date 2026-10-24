@@ -7,7 +7,6 @@
   @include use.spacing('m-inc');
   gap: 0;
   transition: gap 0.3s use.$default-easing;
-  @include use.ripple;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +22,7 @@
     display: flex;
     @include use.spacing('s-inc', 'gap');
     align-items: center;
+    user-select: none;
 
     &::before {
       content: '\f105';

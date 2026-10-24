@@ -1,0 +1,54 @@
+@use '../../../../shared/lib/styles/use';
+
+:host {
+  display: contents;
+  a {
+    justify-content: flex-start;
+    margin-inline: use.$space-2;
+    padding: 0px;
+    &:not(.active-route) {
+      --ripple-color: var(--accent);
+      --ripple-opacity: 100%;
+      .ripple-circle {
+        z-index: 0;
+      }
+      i,
+      svg,
+      .label {
+        z-index: 1;
+      }
+    }
+
+    .label {
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      white-space: nowrap;
+      overflow: hidden;
+      display: none;
+      transition:
+        opacity,
+        visibility 0.3s var(--default-easing),
+        display 0.3s var(--default-easing) allow-discrete;
+    }
+    .box {
+      height: 100%;
+      aspect-ratio: 1;
+      display: flex;
+      flex: none;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+:host-context(app-sidebar.expanded) a {
+  .label {
+    display: inline;
+    opacity: 1;
+    visibility: visible;
+    @starting-style {
+      opacity: 0;
+    }
+  }
+}

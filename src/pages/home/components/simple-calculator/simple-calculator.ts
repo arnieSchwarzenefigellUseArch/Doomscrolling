@@ -13,8 +13,8 @@ export class SimpleCalculator {
   public computedValue = computed(() => {
     if (!this.debouncedValue.value()) return;
     const parsedValue = parseFloat(this.debouncedValue.value());
-    const weekValue = parsedValue * 7;
-    const formattedValue = (+weekValue.toFixed(2)).toString();
+    const yearValue = parsedValue * 365;
+    const formattedValue = (+yearValue.toFixed(2)).toString();
     return formattedValue.concat('ч.');
   });
   public message = computed(() => {

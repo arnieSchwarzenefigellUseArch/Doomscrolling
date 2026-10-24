@@ -15,6 +15,7 @@
       @include ripple;
       @include interactive-after();
       @include radius-for('button-default');
+      user-select: none;
 
       @include breakpoint('tablet') {
         display: flex;
@@ -54,6 +55,7 @@
       padding: 0 $btn-px-pill;
     }
 
+    /*
     &.btn-border-sweep {
       position: relative;
 
@@ -91,6 +93,7 @@
         }
       }
     }
+    */
 
     &.btn-simple {
       color: var(--content-strong);
@@ -100,7 +103,6 @@
       background-color: var(--accent);
       color: var(--content-strong);
       border: none;
-      --ripple-opacity: 22%;
     }
 
     &.btn-ghost {
@@ -118,8 +120,12 @@
       color: var(--accent);
       border: 1px solid var(--content);
     }
+    &.btn-inverted {
+      background: var(--content-strong);
+      color: var(--bg-surface-0);
+    }
   }
-
+  /*
   @property --border-angle {
     syntax: '<angle>';
     initial-value: 0deg;
@@ -146,7 +152,7 @@
       --sweep-deg-1: 10deg;
     }
   }
-
+*/
   &.btn:not(.icon-only) {
     &.btn-primary {
       transition:

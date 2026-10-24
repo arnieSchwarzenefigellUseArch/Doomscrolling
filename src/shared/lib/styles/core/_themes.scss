@@ -5,8 +5,6 @@
   :root {
     --accent: #{var.$accent};
     --accent-rgb: #{func.toRgb(var.$accent)};
-    --secondary-accent: #{var.$secondary-accent};
-    --secondary-accent-rgb: #{func.toRgb(var.$secondary-accent)};
     color-scheme: light dark;
   }
 

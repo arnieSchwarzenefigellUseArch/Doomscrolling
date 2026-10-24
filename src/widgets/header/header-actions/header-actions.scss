@@ -2,6 +2,11 @@
 
 :host {
   display: contents;
+  .header-actions {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+  }
 }
 
 #theme-icon-button {

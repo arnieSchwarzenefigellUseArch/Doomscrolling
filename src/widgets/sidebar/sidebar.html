@@ -1,0 +1,9 @@
+@if (state.isMobile() && state.getState()() === 'expanded') {
+<button atomFade class="backdrop sidebar-backdrop" (click)="state.changeState()"></button>
+}
+
+<aside class="sidebar">
+  <atom-sidebar-header><ng-content select="[sidebarHeader]" /></atom-sidebar-header>
+  <atom-sidebar-items><ng-content /></atom-sidebar-items>
+  <atom-sidebar-footer><ng-content select="[sidebarFooter]" /></atom-sidebar-footer>
+</aside>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Container, ContainerHalf} from '@shared/ui/container/container';
 import {Dropdown} from '@shared/ui/dropdown/dropdown';
 import {Card} from '@shared/ui/card/card';

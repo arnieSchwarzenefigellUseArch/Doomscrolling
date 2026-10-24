@@ -108,6 +108,7 @@
 
   a,
   button {
+    border: none;
     &:not(:disabled),
     &:not(.disabled) {
       cursor: pointer;

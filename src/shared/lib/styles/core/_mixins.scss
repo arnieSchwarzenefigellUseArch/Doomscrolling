@@ -18,8 +18,8 @@ $shadow-variants: ('default', 'floating', 'flat', 'glow', 'spread', 'max', 'tint
   @if not map.has-key($breakpoints, $breakpoint) {
     @error "Unknown breakpoint: #{$breakpoint}. Valid breakpoints are #{map.keys($breakpoints)}";
   }
-
-  @media (max-width: map.get($breakpoints, $breakpoint)) {
+  $width: map.get($breakpoints, $breakpoint);
+  @media (max-width: calc($width - 1px)) {
     @content;
   }
 }
@@ -39,7 +39,8 @@ $shadow-variants: ('default', 'floating', 'flat', 'glow', 'spread', 'max', 'tint
     @error "Unknown breakpoints: #{$breakpoint1} , #{$breakpoint2}. Valid breakpoints are #{map.keys($breakpoints)}";
   }
 
-  @media (min-width: map.get($breakpoints, $breakpoint1)) and (max-width: map.get($breakpoints, $breakpoint2)) {
+  $widthDown: map.get($breakpoints, $breakpoint2);
+  @media (min-width: map.get($breakpoints, $breakpoint1)) and (max-width: calc($widthDown - 1px)) {
     @content;
   }
 }
@@ -139,9 +140,15 @@ $shadow-variants: ('default', 'floating', 'flat', 'glow', 'spread', 'max', 'tint
     border-radius: inherit;
   }
 
-  &:hover::after {
-    opacity: 0.08;
+  @include hover {
+    &::after {
+      opacity: 0.08;
+    }
   }
+  &:active::after {
+    opacity: 0.12;
+  }
+
   &:focus-visible {
     outline: 2px solid var(--content-strong);
     outline-offset: -2px;
@@ -303,22 +310,6 @@ $spacing-directions: ('left', 'right', 'top', 'bottom', 'inline', 'all');
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  .ripple-circle {
-    position: absolute;
-    border-radius: func.radius('circle');
-    background-color: color-mix(in srgb, currentColor var(--ripple-opacity, 12%), transparent);
-    @include shadow-preset('floating');
-    pointer-events: none;
-    transform: scale(0);
-    animation: ripple-grow 0.6s var.$default-easing forwards;
-  }
-}
-
-@keyframes ripple-grow {
-  to {
-    transform: scale(1);
-    opacity: 0;
-  }
 }
 
 @mixin hover {

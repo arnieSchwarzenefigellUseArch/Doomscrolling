@@ -2,6 +2,9 @@
 @use 'sass:meta';
 @use 'shared/lib/styles/internal/internal';
 @use 'shared/lib/styles/core/core';
+@use '@fontsource/inter/400.css' as *;
+@use '@fontsource/montserrat/400.css' as *;
+@use '@fontsource/ubuntu-sans/400.css' as *;
 
 @layer vendor {
   @include meta.load-css('@fortawesome/fontawesome-free/scss/fontawesome');

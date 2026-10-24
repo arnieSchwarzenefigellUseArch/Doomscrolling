@@ -1,0 +1,51 @@
+@use '../../shared/lib/styles/use';
+
+:host {
+  --sidebar-block-spacing: #{use.$space-2};
+  --sidebar-gap: #{use.$space-4};
+  --sidebar-expanded-background-color: #{var(--bg-surface-0)};
+  --sidebar-collapsed-background-color: #{var(--bg-surface-1)};
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+
+  aside.sidebar {
+    transition:
+      background-color,
+      transform 0.3s use.$default-easing;
+    background-color: var(--sidebar-current-color);
+    padding-block: var(--sidebar-block-spacing);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    width: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sidebar-gap);
+    pointer-events: auto;
+  }
+  .sidebar-backdrop {
+    position: absolute;
+    inset: 0;
+    pointer-events: auto;
+  }
+  &.collapsed {
+    --sidebar-current-color: #{var(--sidebar-collapsed-background-color)};
+  }
+  &.expanded {
+    --sidebar-current-color: #{var(--sidebar-expanded-background-color)};
+  }
+  &.mobile {
+    aside.sidebar {
+      transform: translateX(0);
+      width: var(--sidebar-expanded-width);
+    }
+  }
+  &.hidden {
+    aside.sidebar {
+      transform: translateX(-100%);
+    }
+  }
+}
